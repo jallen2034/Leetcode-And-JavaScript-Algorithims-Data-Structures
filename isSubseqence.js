@@ -5,18 +5,18 @@
  * Time Complexity - O(N + M)
  * Space Complexity - O(1) */
 const isSubsequence = (firstString, secondString) => {
-  let pointerFirstString = 0;
-  let pointerSecondString = 0;
-  while (pointerSecondString < secondString.length) {
-    if (firstString[pointerFirstString] === secondString[pointerSecondString]) {
-      if (firstString[pointerFirstString + 1] === undefined) {
+  let i = 0;
+  let j = 0;
+  while (j < secondString.length) {
+    if (firstString[i] === secondString[j]) {
+      if (firstString[i + 1] === undefined) {
         return true;
       } else {
-        pointerFirstString++;
-        pointerSecondString++;
+        i++;
+        j++;
       }
     } else {
-      pointerSecondString++;
+      j++;
     }
   }
   return false;
