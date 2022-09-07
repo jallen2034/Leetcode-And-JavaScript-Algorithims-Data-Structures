@@ -4,8 +4,9 @@ const swap = function (array, indx1, indx2) {
   array[indx2] = temp;
 }
 
+// best case O(n), worst case O(n2)
 const bubbleSort = function (array) {
-  let noSwaps; // optimize when array sorting is complete
+  let noSwaps;
   for (let i = array.length; i > 0; i--) {
     noSwaps = true;
     for (let j = 0; j < i - 1; j++) {
@@ -13,7 +14,7 @@ const bubbleSort = function (array) {
       swap(array, j, j + 1) : 
       noSwaps = false;
     }
-    if (noSwaps) break;
+    if (noSwaps) break; // optimize when array sorting is complete
   }
   return array;
 }
