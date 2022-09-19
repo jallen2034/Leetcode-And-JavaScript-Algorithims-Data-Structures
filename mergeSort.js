@@ -1,29 +1,37 @@
-// function to merge two sorted arrays - runs in O(n + m) time & O(n + m) space
-const merge = function (array1, array2) {
-  let results = [];
-  let i = 0;
-  let j = 0;
-  while (i < array1.length || j < array2.length) {
-    if (array1[i] < array2[j] || j >= array2.length) {
-      results.push(array1[i]);
-      i++;
-    } else if (array1[i] > array2[j] || i >= array1.length) {
-      results.push(array2[j]);
-      j++;
+// swap helper function
+const swap = function (array, indx1, indx2) {
+  const temp = array[indx1];
+  array[indx1] = array[indx2];
+  array[indx2] = temp;
+}
+
+// pivot helper function which is called recursively - runs in O(n)
+const pivot = function (array, start, end) {
+  let pivot = array[start];
+  let swapIndex = start;
+  for (let i = start + 1; i < array.length; i++) {
+    if (pivot > array[i]) {
+      swapIndex++
+      swap(array, swapIndex, i)
     }
   }
-  return results;
+  swap(array, start, swapIndex);
+  return swapIndex;
 }
 
-const mergeSort = function (array) {
-  if (array.length <= 1) {
-    return array;
+/* quick sort - O(n log n) best time, O(n2) worst time, O(log n) space complexity
+ * continue recursion until the left pointer passes right pointer in arrays
+ * recursively handle left side of subarray + recursively handle right side of subarray */
+const quickSort = function (array, left = 0, right = array.length - 1) {
+  if (left < right) {
+    let pivotIndex = pivot(array, left, right);
+    quickSort(array, left, pivotIndex - 1); // left
+    quickSort(array, pivotIndex + 1, right); // right
   }
-  let mid = Math.floor(array.length/2);
-  let left = mergeSort(array.slice(0, mid));
-  let right = mergeSort(array.slice(mid));
-  return merge(left, right);
+  return array;
 }
 
-console.log(mergeSort([10, 24, 76, 73, 72, 1, 9, 26, 88, 123, 56]));
-console.log(mergeSort([10, 24, 76, 73]));
+console.log(quickSort([5, 2, 8, 7, 1, 3]));
+console.log(quickSort([4, 6, 9, 1, 2, 5]));
+console.log(quickSort([1, 5, 6, 3, 2, 4, 8, 7]));
+console.log(quickSort([4, 9, 1, 2]));
