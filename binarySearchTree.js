@@ -70,6 +70,21 @@ class BinarySearchTree {
     traverseAndSearchForNode(value, this.root);
     return foundNode;
   }
+
+  // breadth first search to get all nodes in BST in order
+  breadthFirstSearch() {
+    let node = this.root
+    let visited = [];
+    let queue = [];
+    queue.push(node);
+    while (queue.length) {
+      node = queue.shift();
+      visited.push(node);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    return visted;
+  }
 }
 
 // construct binary search tree
@@ -77,14 +92,18 @@ let tree = new BinarySearchTree();
 
 // insert new nodes & values into BST
 console.log("\nInserting nodes into BST: \n");
-const valuesInsertIntoBST = [12, 5, 17, 15, 19, 21, 16, 4, 7];
+const valuesInsertIntoBST = [10, 6, 15, 20, 3, 8];
 for (let value of valuesInsertIntoBST) {
   tree.insert(value);
 }
 console.log("BST after inserting nodes: ", tree);
-console.log("\nSearching for nodes in BST: \n");
+
+// run BFS on BST
+const visited = tree.breadthFirstSearch();
+console.log(visited);
 
 // search for values in BST
+console.log("\nSearching for nodes in BST: \n");
 const valuesSearchForInBST = [16, 20, 19, 8, 21, 25];
 for (let value of valuesSearchForInBST) {
   console.log(`Searching for a node with a value of ${value}... `, tree.find(value));
