@@ -71,7 +71,7 @@ class BinarySearchTree {
     return foundNode;
   }
 
-  // breadth first search to get all nodes in BST in order
+  // bfs to get all nodes in BST in order
   breadthFirstSearch() {
     let node = this.root
     let visited = [];
@@ -79,11 +79,45 @@ class BinarySearchTree {
     queue.push(node);
     while (queue.length) {
       node = queue.shift();
-      visited.push(node);
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+      visited.push(node.value);
+      if (node.left) queue.push(node.left.value);
+      if (node.right) queue.push(node.right.value);
     }
-    return visted;
+    return visited;
+  }
+
+  depthFirstSearchPreOrder() {
+    let visited = [];
+    let node = this.root;
+    const traverse = function(node) {
+      visited.push(node.value);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+    traverse(node);
+    return visited;
+  }
+  depthFirstSearchPostOrder() {
+    let visited = [];
+    let node = this.root;
+    const traverse = function(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      visited.push(node.value);
+    }
+    traverse(node);
+    return visited;
+  }
+  depthFirstSearchInOrder() {
+    let visited = [];
+    let node = this.root;
+    const traverse = function(node) {
+      if (node.left) traverse(node.left);
+      visited.push(node.value);
+      if (node.right) traverse(node.right);
+    }
+    traverse(node);
+    return visited;
   }
 }
 
@@ -99,11 +133,15 @@ for (let value of valuesInsertIntoBST) {
 console.log("BST after inserting nodes: ", tree);
 
 // run BFS on BST
-const visited = tree.breadthFirstSearch();
+const visited1b = tree.breadthFirstSearch();
+console.log(visitedb);
+
+const visited = tree.depthFirstSearchInOrder();
 console.log(visited);
 
-// search for values in BST
 console.log("\nSearching for nodes in BST: \n");
+
+// search for values in BST
 const valuesSearchForInBST = [16, 20, 19, 8, 21, 25];
 for (let value of valuesSearchForInBST) {
   console.log(`Searching for a node with a value of ${value}... `, tree.find(value));
