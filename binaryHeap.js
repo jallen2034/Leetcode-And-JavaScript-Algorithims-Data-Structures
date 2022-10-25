@@ -26,6 +26,7 @@ class MaxBinaryHeap {
     this.values[indx2] = temp;
   }
   extractMax() {
+    if (this.values.length === 0) return;
     let index = this.valuesLength - 1;
     this.values[0] = this.values[index];
     this.values.pop();
