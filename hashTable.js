@@ -35,6 +35,14 @@ class SinglyLinkedList {
     }
     return undefined;
   }
+  traverse(type, arr) {
+    let current = this.head;
+    while (current) {
+      if (type === "value" && !arr.includes(current.val[1])) arr.push(current.val[1]);
+      if (type === "key" && !arr.includes(current.val[0])) arr.push(current.val[0]);
+      current = current.next;
+    }
+  }
 }
 
 class HashTable {
@@ -56,22 +64,38 @@ class HashTable {
   set(key, value) {
     const index = this._hash(key);
     if (!this.keyMap[index]) {
-      const linkedListAtIndex = new SinglyLinkedList();
-      linkedListAtIndex.push([key, value]);
-      this.keyMap[index] = linkedListAtIndex;
+      const linkedListAtIdx = new SinglyLinkedList();
+      linkedListAtIdx.push([key, value]);
+      this.keyMap[index] = linkedListAtIdx;
     } else {
-      const linkedListAtIndex = this.keyMap[index];
-      linkedListAtIndex.push([key, value]);
+      const linkedListAtIdx = this.keyMap[index];
+      linkedListAtIdx.push([key, value]);
     }
   }
   // get key from hash table using seperate chaining (array of linked lists)
   get(key) {
     const index = this._hash(key);
     if (this.keyMap[index]) {
-      const linkedListAtIndex = this.keyMap[index];
-      return linkedListAtIndex.find(key);
+      const linkedListAtIdx = this.keyMap[index];
+      return linkedListAtIdx.find(key);
     }
     return undefined;
+  }
+  // return all the keys of our hash table in an array 
+  keys() {
+    const keys = [];
+    for (let linkedListAtIdx of this.keyMap) {
+      if (linkedListAtIdx) linkedListAtIdx.traverse('key', keys);
+    }
+    return keys;
+  }
+  // return all the values of our hash table in an array 
+  values() {
+    const values = [];
+    for (let linkedListAtIdx of this.keyMap) {
+      if (linkedListAtIdx)linkedListAtIdx.traverse('value', values);
+    }
+    return values;
   }
 }
 
@@ -88,6 +112,7 @@ ht.set("pickle", "iPhone");
 ht.set("are", "pixel");
 ht.set("so", "toads");
 ht.set("gross", "yard");
+ht.set("phone", "pixel");
 
 console.log(ht.get("ho")); // billy
 console.log(ht.get("pink")); // jeffrey
@@ -105,3 +130,6 @@ console.log(ht.get("henry")); // undefined
 console.log(ht.get("is")); // undefined
 console.log(ht.get("a")); // undefined
 console.log(ht.get("whaa")); // undefined
+
+console.log(ht.values()); // [goodbye, yard, are cool, iPhone, pizza, toads, billy, jeffrey, cheese, pixel, bacob]
+console.log(ht.keys()); // [hi, gross, cats, pickle, love, so, ho, pink, and, phone, watermelon, are]
