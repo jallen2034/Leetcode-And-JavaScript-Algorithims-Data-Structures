@@ -3,9 +3,9 @@ class Graph {
   constructor() {
     this.adjacencyList = {};
   }
-  addstart(start) {
-    if (!this.adjacencyList[start]) return this.adjacencyList[start] = [];
-    return 'There is already a start with this key in the adjacency list';
+  addNode(node) {
+    if (!this.adjacencyList[node]) return this.adjacencyList[node] = [];
+    return 'There is already a node with this key in the adjacency list';
   }
   addEdge(v1, v2) {
     if (this.adjacencyList[v1] && (
@@ -26,14 +26,14 @@ class Graph {
       this.adjacencyList[v2].splice(v1Index, 1);
     }
   }
-  removestart(start) {
-    const edgesFromstart = this.adjacencyList[start];
-    while (edgesFromstart.length > 0) {
-      this.removeEdge(start, edgesFromstart[0]); // always remove the first edge in edges array for a start
+  removeNode(node) {
+    const edgesFromnode = this.adjacencyList[node];
+    while (edgesFromnode.length > 0) {
+      this.removeEdge(node, edgesFromnode[0]); // always remove the first edge in edges array for a node
     }
-    delete this.adjacencyList[start];
+    delete this.adjacencyList[node];
   }
-  dfsRecursive(start) {
+  dfsRecursive(node) {
     const result = [];
     const visited = {};
     const adjacencyList = this.adjacencyList;
@@ -47,15 +47,15 @@ class Graph {
         }
       }
     }
-    dfs(start);
+    dfs(node);
     return result;
   }
-  dfsIterative(start) {
-    let stack = [start];
+  dfsIterative(node) {
+    let stack = [node];
     let result = [];
     let visited = {};
     let currentVertex;
-    visited[start] = true;
+    visited[node] = true;
     while (stack.length) {
       currentVertex = stack.pop();
       result.push(currentVertex);
@@ -68,12 +68,12 @@ class Graph {
     }
     return result;
   }
-  bfs(start) {
-    let queue = [start];
+  bfs(node) {
+    let queue = [node];
     let result = [];
     let visited = {};
     let currentVertex;
-    visited[start] = true;
+    visited[node] = true;
     while (queue.length) {
       currentVertex = queue.shift();
       result.push(currentVertex);
@@ -91,27 +91,27 @@ class Graph {
 var undirectedGraph = new Graph();
 const nodesToAdd = ['A', 'B', 'C', 'D', 'E', 'F'];
 const edgesToAdd = [
-  { firststart: 'A', secondstart: 'B' },
-  { firststart: 'A', secondstart: 'C' },
-  { firststart: 'B', secondstart: 'D' },
-  { firststart: 'C', secondstart: 'E' },
-  { firststart: 'D', secondstart: 'E' },
-  { firststart: 'D', secondstart: 'F' },
-  { firststart: 'F', secondstart: 'D' },
-  { firststart: 'F', secondstart: 'E' }
+  { firstnode: 'A', secondnode: 'B' },
+  { firstnode: 'A', secondnode: 'C' },
+  { firstnode: 'B', secondnode: 'D' },
+  { firstnode: 'C', secondnode: 'E' },
+  { firstnode: 'D', secondnode: 'E' },
+  { firstnode: 'D', secondnode: 'F' },
+  { firstnode: 'F', secondnode: 'D' },
+  { firstnode: 'F', secondnode: 'E' }
 ];
 const nodesToRemove = ['A', 'B', 'D', 'E', 'F', 'C'];
 
-// add startes to undirected graph
+// add nodees to undirected graph
 for (let node of nodesToAdd) {
-  undirectedGraph.addstart(node);
+  undirectedGraph.addNode(node);
 }
 
 console.log(undirectedGraph);
 
-// add edges between startes in undirected graph
+// add edges between nodees in undirected graph
 for (let edges of edgesToAdd) {
-  undirectedGraph.addEdge(edges.firststart, edges.secondstart);
+  undirectedGraph.addEdge(edges.firstnode, edges.secondnode);
 }
 
 console.log(undirectedGraph);
@@ -121,8 +121,8 @@ console.log(undirectedGraph.dfsRecursive("A"));
 console.log(undirectedGraph.dfsIterative("A"));
 console.log(undirectedGraph.bfs("A"));
 
-// remove startes and the edges between said startes in undirected graph
+// remove nodees and the edges between said nodees in undirected graph
 for (let node of nodesToRemove) {
-  undirectedGraph.removestart(node);
+  undirectedGraph.removeNode(node);
   console.log(undirectedGraph);
 }
