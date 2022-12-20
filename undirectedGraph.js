@@ -50,6 +50,42 @@ class Graph {
     dfs(start);
     return result;
   }
+  dfsIterative(start) {
+    let stack = [start];
+    let result = [];
+    let visited = {};
+    let currentVertex;
+    visited[start] = true;
+    while (stack.length) {
+      currentVertex = stack.pop();
+      result.push(currentVertex);
+      this.adjacencyList[currentVertex].forEach(neighbour => {
+        if (!visited[neighbour]) {
+          visited[neighbour] = true;
+          stack.push(neighbour);
+        }
+      });
+    }
+    return result;
+  }
+  bfs(start) {
+    let queue = [start];
+    let result = [];
+    let visited = {};
+    let currentVertex;
+    visited[start] = true;
+    while (queue.length) {
+      currentVertex = queue.shift();
+      result.push(currentVertex);
+      this.adjacencyList[currentVertex].forEach(neighbour => {
+        if (!visited[neighbour]) {
+          visited[neighbour] = true;
+          queue.push(neighbour);
+        }
+      });
+    }
+    return result;
+  }
 }
 
 var undirectedGraph = new Graph();
@@ -80,7 +116,10 @@ for (let edges of edgesToAdd) {
 
 console.log(undirectedGraph);
 
-undirectedGraph.dfsRecursive("A");
+// traverse graph
+console.log(undirectedGraph.dfsRecursive("A"));
+console.log(undirectedGraph.dfsIterative("A"));
+console.log(undirectedGraph.bfs("A"));
 
 // remove startes and the edges between said startes in undirected graph
 for (let start of startesToRemove) {
