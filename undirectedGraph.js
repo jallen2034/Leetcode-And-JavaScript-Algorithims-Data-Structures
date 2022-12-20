@@ -89,7 +89,7 @@ class Graph {
 }
 
 var undirectedGraph = new Graph();
-const startesToAdd = ['A', 'B', 'C', 'D', 'E', 'F'];
+const nodesToAdd = ['A', 'B', 'C', 'D', 'E', 'F'];
 const edgesToAdd = [
   { firststart: 'A', secondstart: 'B' },
   { firststart: 'A', secondstart: 'C' },
@@ -100,11 +100,11 @@ const edgesToAdd = [
   { firststart: 'F', secondstart: 'D' },
   { firststart: 'F', secondstart: 'E' }
 ];
-const startesToRemove = ['A', 'B', 'D', 'E', 'F', 'C'];
+const nodesToRemove = ['A', 'B', 'D', 'E', 'F', 'C'];
 
 // add startes to undirected graph
-for (let start of startesToAdd) {
-  undirectedGraph.addstart(start);
+for (let node of nodesToAdd) {
+  undirectedGraph.addstart(node);
 }
 
 console.log(undirectedGraph);
@@ -122,7 +122,7 @@ console.log(undirectedGraph.dfsIterative("A"));
 console.log(undirectedGraph.bfs("A"));
 
 // remove startes and the edges between said startes in undirected graph
-for (let start of startesToRemove) {
-  undirectedGraph.removestart(start);
+for (let node of nodesToRemove) {
+  undirectedGraph.removestart(node);
   console.log(undirectedGraph);
 }
