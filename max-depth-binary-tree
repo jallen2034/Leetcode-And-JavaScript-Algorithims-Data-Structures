@@ -1,0 +1,80 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const maxDepth = function(root) {
+  let maxDepthOfTree = 0;  // Initialize a counter variable to 0
+  const traverseBTRecursively = function(currentDepth, node) {
+    if (node === null) { // If `node` is `null`, return `currentDepth` as the base case.
+      return currentDepth;
+    }
+
+    // Update `maxDepthOfTree` to be the max val of either `maxDepthOfTree` and `currentDepth`
+    maxDepthOfTree = Math.max(maxDepthOfTree, currentDepth);
+
+    traverseBTRecursively(currentDepth + 1, node.left); // Traverse Left child node & increment currentDepth
+    traverseBTRecursively(currentDepth + 1, node.right); // Traverse Right child node & increment currentDepth
+
+    // Return `currentDepth` from the `maxDepth` function.
+    return currentDepth;
+  }
+  traverseBTRecursively(1, root) // First call at root of Binary Tree
+  return maxDepthOfTree;
+};
+
+// Binary Tree 1
+const bt1 = {
+  val: 1,
+  left: null,
+  right: null,
+};
+
+// Binary Tree 2
+const bt2 = {
+  val: 1,
+  left: {
+    val: 2,
+    left: null,
+    right: null,
+  },
+  right: {
+    val: 3,
+    left: null,
+    right: null,
+  },
+};
+
+// Binary Tree 3
+const bt3 = {
+  val: 1,
+  left: {
+    val: 2,
+    left: {
+      val: 4,
+      left: null,
+      right: null,
+    },
+    right: null,
+  },
+  right: {
+    val: 3,
+    left: null,
+    right: {
+      val: 5,
+      left: null,
+      right: null,
+    },
+  },
+};
+
+const depth1 = maxDepth(bt1); // should return 1
+const depth2 = maxDepth(bt2); // should return 2
+const depth3 = maxDepth(bt3); // should return 3
