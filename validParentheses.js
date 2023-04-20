@@ -21,7 +21,7 @@ const checkParenthesesChars = function (stack, closingParenthesis) {
  * @return {boolean}
  */
 const isValid = function (s) {
-  const stack = [] // stack to keep track of the if parentheses is valid
+  const stack = [] // stack to keep track if the parentheses is valid
   const openingParenthesesChars = ["(", "[", "{"];
   for (let char of s) {
     let isValid = true;
