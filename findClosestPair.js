@@ -6,7 +6,7 @@ const dist = function(p1, p2) {
   return Math.sqrt(dx * dx + dy * dy);
 };
 
-// This function finds the pair of points that are closest to each other in a set of points.
+// Brute force approach. O(n2). This function finds the pair of points that are closest to each other in a set of points.
 const findClosestPair = function(points) {
   let distance = Infinity;  // Initialize the distance variable to infinity.
   let xm, ym; // Initialize variables to keep track of the two closest points.
