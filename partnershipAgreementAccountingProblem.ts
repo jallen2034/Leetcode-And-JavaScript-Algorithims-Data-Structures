@@ -55,15 +55,6 @@ const calculateInterestAllowance = (
   return beginningYearCapital * (interestRate / 100);
 }
 
-// Calculate individual profits for a partner
-const calculateIndividualProfit = (
-  companyProfit: number,
-  salary: number,
-  interestAllowance: number
-): number => {
-  return calculateProfitsForPerson(salary, interestAllowance, companyProfit / 2);
-}
-
 // Calculate individual profits for partners in a company
 const calculatePartnerResults = (
   companyProfit: number,
@@ -80,8 +71,9 @@ const calculatePartnerResults = (
   const hansenInterestAllowance: number = calculateInterestAllowance(hansenBeginningYearCapital, interestRate);
   companyProfit -= hernandezInterestAllowance + hansenInterestAllowance; // Company 20k in the red
 
-  const hansenProfit: number = calculateIndividualProfit(companyProfit, hansenSalary, hansenInterestAllowance);
-  const hernandezProfit: number = calculateIndividualProfit(companyProfit, hernandezSalary, hernandezInterestAllowance);
+  // Calculate individual profits for Hansen and Hernandez directly
+  const hansenProfit: number = calculateProfitsForPerson(hansenSalary, hansenInterestAllowance, companyProfit / 2);
+  const hernandezProfit: number = calculateProfitsForPerson(hernandezSalary, hernandezInterestAllowance, companyProfit / 2);
 
   return [hansenProfit, hernandezProfit];
 }
