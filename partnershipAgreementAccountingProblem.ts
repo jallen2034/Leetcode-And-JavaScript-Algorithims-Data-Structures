@@ -46,8 +46,8 @@ const calculateProfitsForPerson = (
   shareOfWhatCompanyLost: number
 ) => {
   try {
-    const positiveLoss = Math.abs(shareOfWhatCompanyLost);
-    const profits = partner.salary + partner.interestAllowance;
+    const positiveLoss: number = Math.abs(shareOfWhatCompanyLost);
+    const profits: number = partner.salary + partner.interestAllowance;
     partner.individualProfit = profits - positiveLoss;
   } catch (e: any) {
     console.error(e);
@@ -103,8 +103,8 @@ const calculatePartnerResults = (
 ) => {
   try {
     let companySalaryExpense: number = 0; // Total salary expense for the company
-    let companyProfit = partners[0].companyProfit;
-    let totalPartnersInterestAllowance = 0;
+    let companyProfit: number = partners[0].companyProfit;
+    let totalPartnersInterestAllowance: number = 0;
   
     // Calculate the salary expenses for all employees
     for (let i = 0; i < partners.length; i++) {
