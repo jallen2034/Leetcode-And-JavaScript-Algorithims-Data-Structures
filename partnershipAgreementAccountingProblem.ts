@@ -11,7 +11,6 @@ The partnership agreement between J. Hansen and D. Hernandez outlines difference
 Given that the partnership made a profit of $30,000 in the first year, the question is: How much profit would be allocated to Hansen?
 
 Approach:
-
 I broke down the problem into code using TypeScript. Here's what I did step by step:
 
 1. Created a function to calculate profits for an individual based on salary, interest allowance, and loss share.
