@@ -13,11 +13,11 @@ Given that the partnership made a profit of $30,000 in the first year, the quest
 Approach:
 I broke down the problem into code using TypeScript. Here's what I did step by step:
 
-1. Created a function to calculate profits for an individual based on salary, interest allowance, and loss share.
+1. Created a function to calculate profits for an individual based on salary, interest allowance, and their share of the losses in the company.
 2. Calculated total salary expenses for the company by summing Hansen's and Hernandez's salaries.
 3. Calculated interest allowances for each partner based on their beginning-year capital and the interest rate.
-4. Subtracted salary expenses and interest allowances from the company's profit, leaving the company's balance in the red.
-5. Used the calculateProfitsForPerson function to determine the individual profits for Hansen and Hernandez, considering their salaries, interest allowances and share of what they owe each fromt he company being in the red.
+4. Subtracted salary expenses and interest allowances from the company's profit, leaving the company's balance 20k in the red.
+5. Used the calculateProfitsForPerson function to determine the individual profits for Hansen and Hernandez, considering their salaries, interest allowances and share of what they owe each from the company being in the red.
 
 Results:
 Based on the provided example, the calculated individual profits were as follows:
