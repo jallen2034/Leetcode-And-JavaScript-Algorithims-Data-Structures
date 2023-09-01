@@ -1,30 +1,32 @@
 /*
-My girlfriend encountered this accounting question in her school, and I found it intriguing as a programmer to tackle the problem by implementing a solution in code. Here's how I approached it:
+  My girlfriend encountered this accounting question in her school, and I found it intriguing as a programmer to tackle the problem by implementing a solution in code. Here's how I approached it:
 
-Problem Statement:
-The partnership agreement between J. Hansen and D. Hernandez outlines differences in service and capital contributions as follows:
+  Problem Statement:
+  The partnership agreement between J. Hansen and D. Hernandez outlines differences in service and capital contributions as follows:
 
-1. They receive annual salary allowances of $30,000 for Hansen and $10,000 for Hernandez.
-2. They are entitled to annual interest allowances of 10% of their respective beginning-year capital balances.
-3. They share any remaining profit or loss equally. Both partners had a beginning-year capital balance of $50,000.
+  1. They receive annual salary allowances of $30,000 for Hansen and $10,000 for Hernandez.
+  2. They are entitled to annual interest allowances of 10% of their respective beginning-year capital balances.
+  3. They share any remaining profit or loss equally. Both partners had a beginning-year capital balance of $50,000.
 
-Given that the partnership made a profit of $30,000 in the first year, the question is: How much profit would be allocated to Hansen?
+  Given that the partnership made a profit of $30,000 in the first year, the question is: How much profit would be allocated to Hansen?
 
-Approach:
-I broke down the problem into code using TypeScript. Here's what I did step by step:
+  Approach:
+  I broke down the problem into code using TypeScript. Here's what I did step by step:
 
-1. Created a function to calculate profits for an individual based on salary, interest allowance, and their share of the losses in the company.
-2. Calculated total salary expenses for the company by summing Hansen's and Hernandez's salaries.
-3. Calculated interest allowances for each partner based on their beginning-year capital and the interest rate.
-4. Subtracted salary expenses and interest allowances from the company's profit, leaving the company's balance 20k in the red.
-5. Used the calculateProfitsForPerson function to determine the individual profits for Hansen and Hernandez, considering their salaries, interest allowances and share of what they owe each from the company being in the red.
+  1. Created a function to calculate profits for an individual based on salary, interest allowance, and their share of the losses in the company.
+  2. Calculated total salary expenses for the company by summing Hansen's and Hernandez's salaries.
+  3. Calculated interest allowances for each partner based on their beginning-year capital and the interest rate.
+  4. Subtracted salary expenses and interest allowances from the company's profit, leaving the company's balance 20k in the red.
+  5. Used the calculateProfitsForPerson function to determine the individual profits for Hansen and Hernandez, considering their salaries, interest allowances 
+  and share of what they owe each from the company being in the red.
 
-Results:
-Based on the provided example, the calculated individual profits were as follows:
-- Hansen's individual result: $25,000
-- Hernandez's individual result: $5,000
+  Results:
+  Based on the provided example, the calculated individual profits were as follows:
+  - Hansen's individual result: $25,000
+  - Hernandez's individual result: $5,000
 
-This experience allowed me to bridge the gap between accounting concepts and programming logic, showcasing the crossover between the two fields. It was an engaging exercise that highlighted the practical application of algorithmic thinking in a real-world scenario.
+  This experience allowed me to bridge the gap between accounting concepts and programming logic, showcasing the crossover between the two fields. 
+  It was an engaging exercise that highlighted the practical application of algorithmic thinking in a real-world scenario.
 */
 
 // Type for partners in company
@@ -38,7 +40,6 @@ type Partner = {
   individualProfit: number
 };
 
-// Calculate profits for an individual based on salary, interest allowance, and loss share
 // Calculate profits for an individual based on salary, interest allowance, and loss share
 const calculateProfitsForPerson = (
   partner: Partner,
