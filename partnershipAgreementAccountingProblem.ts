@@ -1,5 +1,5 @@
 /*
-  My girlfriend encountered this accounting question in her school, and I found it intriguing as a programmer to tackle the problem by implementing a solution in code. Here's how I approached it:
+  My friend encountered this accounting question in her school, and I found it intriguing as a programmer to tackle the problem by implementing a solution in code. Here's how I approached it:
 
   Problem Statement:
   The partnership agreement between J. Hansen and D. Hernandez outlines differences in service and capital contributions as follows:
