@@ -27,58 +27,125 @@ Based on the provided example, the calculated individual profits were as follows
 This experience allowed me to bridge the gap between accounting concepts and programming logic, showcasing the crossover between the two fields. It was an engaging exercise that highlighted the practical application of algorithmic thinking in a real-world scenario.
 */
 
+// Type for partners in company
+type Partner = {
+  name: string,
+  salary: number,
+  interestRate: number,
+  beginningYearCapital: number,
+  interestAllowance: number,
+  companyProfit: number,
+  individualProfit: number
+};
+
+// Calculate profits for an individual based on salary, interest allowance, and loss share
 // Calculate profits for an individual based on salary, interest allowance, and loss share
 const calculateProfitsForPerson = (
-  salary: number,
-  interestAllowance: number,
+  partner: Partner,
   shareOfWhatCompanyLost: number
-): number => {
+) => {
   const positiveLoss = Math.abs(shareOfWhatCompanyLost);
-  const profits = salary + interestAllowance;
-  return profits - positiveLoss;
+  const profits = partner.salary + partner.interestAllowance;
+  partner.individualProfit = profits - positiveLoss;
 }
 
 // Calculate total salary expenses for the company
 const calculateTotalSalaryExpense = (
-  hansenSalary: number,
-  hernandezSalary: number
+  partner1: Partner,
+  partner2: Partner
 ): number => {
-  return hansenSalary + hernandezSalary;
+  try {
+    if (partner1 && partner2) {
+      return partner1.salary + partner2.salary;
+    }
+    return 0;
+  } catch (e: any) {
+    console.error(e);
+    throw e;
+  }
 }
 
 // Calculate interest allowance for a partner
-const calculateInterestAllowance = (
-  beginningYearCapital: number,
-  interestRate: number
-): number => {
-  return beginningYearCapital * (interestRate / 100);
+const calculateIndividualInterestAllowance = (
+  partner: Partner
+) => {
+  partner.interestAllowance = (partner.beginningYearCapital * partner.interestRate) / 100;
+}
+
+const calculateToalInterestAllowanceForAllPartners = (
+  partner1: Partner,
+  partner2: Partner
+): any => {
+  try {
+    if (partner1 && partner2) {
+      return partner1.interestAllowance + partner2.interestAllowance;
+    }
+    return 0;
+  } catch (e: any) {
+    console.log(e);
+  }
 }
 
 // Calculate individual profits for partners in a company
 const calculatePartnerResults = (
-  companyProfit: number,
-  hansenSalary: number,
-  hernandezSalary: number,
-  interestRate: number,
-  hansenBeginningYearCapital: number,
-  hernandezBeginningYearCapital: number
-): [number, number] => {
-  const companySalaryExpense: number = calculateTotalSalaryExpense(hansenSalary, hernandezSalary);
-  companyProfit -= companySalaryExpense; // Company 10k in the red
-
-  const hernandezInterestAllowance: number = calculateInterestAllowance(hernandezBeginningYearCapital, interestRate);
-  const hansenInterestAllowance: number = calculateInterestAllowance(hansenBeginningYearCapital, interestRate);
-  companyProfit -= hernandezInterestAllowance + hansenInterestAllowance; // Company 20k in the red
-
-  // Calculate individual profits for Hansen and Hernandez directly
-  const hansenProfit: number = calculateProfitsForPerson(hansenSalary, hansenInterestAllowance, companyProfit / 2);
-  const hernandezProfit: number = calculateProfitsForPerson(hernandezSalary, hernandezInterestAllowance, companyProfit / 2);
-
-  return [hansenProfit, hernandezProfit];
+  partners: Partner[]
+) => {
+  try {
+    let companySalaryExpense: number = 0; // Total salary expense for the company
+    let companyProfit = partners[0].companyProfit;
+    let totalPartnersInterestAllowance = 0;
+  
+    // Calculate the salary expenses for all employees
+    for (let i = 0; i < partners.length; i++) {
+      companySalaryExpense += calculateTotalSalaryExpense(partners[i], partners[i + 1])
+    }
+  
+    // Calculate individual interest allowence for all partners
+    for (let partner of partners) {
+      calculateIndividualInterestAllowance(partner);
+    }
+  
+    companyProfit -= companySalaryExpense; // Company 10k in the red
+  
+    for (let i = 0; i < partners.length; i++) {
+      totalPartnersInterestAllowance += calculateToalInterestAllowanceForAllPartners(partners[i], partners[i + 1]);
+    }
+  
+    companyProfit -= totalPartnersInterestAllowance; // Company 20k in the red
+  
+    // Calculate individual profits for Hansen and Hernandez directly
+    for (let partner of partners) {
+      calculateProfitsForPerson(partner, companyProfit / 2);
+    }
+  } catch (e: any) {
+    console.error(e);
+    throw e;
+  }
 }
 
-// Example usage
-const [hansenResult, hernandezResult] = calculatePartnerResults(30000, 30000, 10000, 10, 50000, 50000);
+// Test data to use
+const partners: Partner[] = [
+  {
+    name: 'Hansen',
+    salary: 30000,
+    interestRate: 10,
+    beginningYearCapital: 50000,
+    interestAllowance: 0,
+    companyProfit: 30000,
+    individualProfit: 0
+  },
+  { 
+    name: 'Hernandez',
+    salary: 10000,
+    interestRate: 10,
+    beginningYearCapital: 50000,
+    interestAllowance: 0,
+    companyProfit: 30000,
+    individualProfit: 0
+  }
+];
 
-console.log("Hansen's individual result:", hansenResult);
-console.log("Hernandez's individual result:", hernandezResult);
+// Example usage
+console.log("partners before", partners);
+calculatePartnerResults(partners);
+console.log("partners after", partners);
