@@ -134,13 +134,15 @@ const calculatePartnerResults = (
   }
 }
 
+const beginningYearCapital: number = 50000;
+
 // Test data to use
 const partners: Partner[] = [
   {
     name: 'Hansen',
     salary: 30000,
     interestRate: 10,
-    beginningYearCapital: 50000,
+    beginningYearCapital: beginningYearCapital,
     interestAllowance: 0,
     companyProfit: 30000,
     individualProfit: 0
@@ -149,7 +151,7 @@ const partners: Partner[] = [
     name: 'Hernandez',
     salary: 10000,
     interestRate: 10,
-    beginningYearCapital: 50000,
+    beginningYearCapital: beginningYearCapital,
     interestAllowance: 0,
     companyProfit: 30000,
     individualProfit: 0
