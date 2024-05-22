@@ -16,7 +16,7 @@ const maximumLengthSubstring = function (s) {
     }
 
     resultHash.set(value, (resultHash.has(value) ? resultHash.get(value) : 0) + 1)
-    arrLen = Math.max(arrLen, right-left+1);
+    arrLen = Math.max(arrLen, right - left + 1);
   }
 
   return arrLen
