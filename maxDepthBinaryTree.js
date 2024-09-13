@@ -25,7 +25,7 @@ class BinarySearchTree {
    * This simulates inserting these values into the tree.
    */
   insertHardcodedTree(value) {
-    // Manually create the nodes and build the tree
+    // Manually create the nodes and build the tree.
     this.root = new Node(3);
     this.root.left = new Node(9);
     this.root.right = new Node(20);
