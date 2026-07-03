@@ -60,16 +60,6 @@ function buildTree(vals: (number | null)[]): TreeNode | null {
   return root;
 }
 
-function check(testNo: number, actual: number, expected: number): void {
-  const status = actual === expected ? "PASS" : "FAIL";
-  console.log(`Test ${testNo}: ${status}  (got ${actual}, expected ${expected})`);
-}
-
-/**
- * TODO: implement this yourself.
- * Return the maximum depth of the binary tree: the number of nodes along the
- * longest path from the root node down to the farthest leaf node.
- */
 function maxDepthTopDown(root: TreeNode | null): number {
   let deepestFound = 0;
 
@@ -120,10 +110,19 @@ const tree4: TreeNode = buildTree([1]); // single node, expected 1
 const tree5: TreeNode = buildTree([1, 2, 3, 4, 5]); // balanced-ish, expected 3
 const tree6: TreeNode = buildTree([1, 2, null, 3, null, 4]); // left-skewed, expected 4
 
-check(1, maxDepthTopDown(tree1), 3);
-check(1, maxDepthBottomUp(tree1), 3);
-check(2, maxDepthTopDown(tree2), 2);
-check(3, maxDepthTopDown(tree3), 0);
-check(4, maxDepthTopDown(tree4), 1);
-check(5, maxDepthTopDown(tree5), 3);
-check(6, maxDepthTopDown(tree6), 4);
+function check(label: string, actual: number, expected: number): void {
+  const status = actual === expected ? "PASS" : "FAIL";
+  console.log(`${label}: ${status}  (got ${actual}, expected ${expected})`);
+}
+
+function checkBoth(testNo: number, tree: TreeNode | null, expected: number): void {
+  check(`Test ${testNo} (top-down) `, maxDepthTopDown(tree), expected);
+  check(`Test ${testNo} (bottom-up)`, maxDepthBottomUp(tree), expected);
+}
+
+checkBoth(1, tree1, 3);
+checkBoth(2, tree2, 2);
+checkBoth(3, tree3, 0);
+checkBoth(4, tree4, 1);
+checkBoth(5, tree5, 3);
+checkBoth(6, tree6, 4);
