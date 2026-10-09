@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="twoSum" type="NodeJSConfigurationType" path-to-node="/Users/jacoballen/.nvm/versions/node/v23.11.1/bin/node" working-dir="$PROJECT_DIR$" path-to-js-file="$PROJECT_DIR$/arrays-and-hashing/twoSum.js">
+    <method v="2" />
+  </configuration>
+</component>
