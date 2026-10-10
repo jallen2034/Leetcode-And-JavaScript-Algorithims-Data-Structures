@@ -29,7 +29,6 @@ const check = (label: string, actual: number, expected: number) => {
   console.log(`${actual === expected ? 'PASS' : 'FAIL'} ${label}: got ${actual}, expected ${expected}`);
 };
 
-// A small one you can check by hand from the table above
 check('fib(6)', fibDP(4), 3);
 check('fib(6)', fibDP(5), 5);
 check('fib(1)', fibDP(7), 13);
