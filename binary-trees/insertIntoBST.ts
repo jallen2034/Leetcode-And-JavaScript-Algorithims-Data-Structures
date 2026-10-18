@@ -10,6 +10,8 @@
 
 import { TreeNode, buildTree, treeToArray, check } from './helpers.ts';
 
+type Direction = 'left' | 'right';
+
 const insertNode = (
   root: TreeNode | null,
   val: number,
@@ -19,22 +21,24 @@ const insertNode = (
     return newNode;
   }
 
-  const directionToMove: string = val > root.val ? 'right' : 'left';
+  const dir: Direction = val > root.val ? 'right' : 'left';
 
-  if (directionToMove === 'right' && root.right) {
-    return insertNode(root.right, val);
+  if (dir === 'right' && root.right) {
+    insertNode(root.right, val);
+    return root;
   }
 
-  if (directionToMove === 'left' && root.left) {
-    return insertNode(root.left, val);
+  if (dir === 'left' && root.left) {
+    insertNode(root.left, val);
+    return root;
   }
 
-  if (directionToMove === 'right' && !root.right) {
+  if (dir === 'right' && !root.right) {
     const newNode = new TreeNode(val);
     root.right = newNode;
   }
 
-  if (directionToMove === 'left' && !root.left) {
+  if (dir === 'left' && !root.left) {
     const newNode = new TreeNode(val);
     root.left = newNode;
   }
