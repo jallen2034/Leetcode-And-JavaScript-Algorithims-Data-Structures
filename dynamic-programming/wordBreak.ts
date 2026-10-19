@@ -30,7 +30,7 @@ const canBeSegmented = (
       const childCanBeSegmented: boolean = canBeSegmented(newClearedSubString, wordDict, memo)
 
       if (childCanBeSegmented) {
-        memo.set(target, childCanBeSegmented)
+        memo.set(target, childCanBeSegmented);
         return childCanBeSegmented;
       }
     }
