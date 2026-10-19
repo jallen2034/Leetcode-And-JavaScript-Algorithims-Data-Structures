@@ -44,6 +44,29 @@ in the file header:
 4. **Debounced search** (`src/exercises/04-debounced-search/`) — write
    `useDebouncedValue`; capstone combining 1–3 with your debounce.
 
+### 2b. Machine-coding builds (`react-exercises/` 05–07) — added for the onsite loop
+
+The screen is passed; the onsite machine-coding round is a 60–120 min
+"build this UI" task. These three are chosen from documented Microsoft prompts
+("chat interface like Teams", image slider, address-book-with-pagination) plus
+the job posting's own emphasis (data-rich observability UX, accessibility):
+
+5. **Image carousel** (`05-carousel/`) — prev/next with wrap, dots, keyboard
+   nav, a11y; autoplay-with-cleanup as the stretch. ~45 min core.
+6. **Teams chat** (`06-chat/`) — THE documented Microsoft prompt. Planted
+   StrictMode double-subscription bug to fix first, then send/auto-scroll/
+   message grouping. ~60 min core. Highest priority of the three.
+7. **Service-health data table** (`07-data-table/`) — sort/filter/paginate
+   with derived-not-stored state discipline; closest match to this team's
+   day job. ~60 min core.
+
+Suggested afternoon order: 06 → 05 → 07 (priority order if time runs short).
+
+Stretch for ex 04: re-point the debounced search at a REAL public API —
+PokeAPI (`https://pokeapi.co/api/v2/pokemon?limit=1500`, no key needed; fetch
+once, filter client-side) — so you've done the debounce-against-network story
+end to end with real latency at least once.
+
 ### 3. If time remains
 
 - Re-write `debounce` from a blank file, no peeking at your earlier attempt.

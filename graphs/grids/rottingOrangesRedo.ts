@@ -80,8 +80,8 @@ const orangesRotting = (grid: number[][]): number => {
     const neighborCoords: [number, number][] = [
       [row, col + 1], // Right.
       [row, col - 1], // Left.
-      [row + 1, col], // Up.
-      [row - 1, col] //  Down.
+      [row + 1, col], // Down
+      [row - 1, col] //  Up.
     ]
 
     for (let orangeCoord of neighborCoords) {

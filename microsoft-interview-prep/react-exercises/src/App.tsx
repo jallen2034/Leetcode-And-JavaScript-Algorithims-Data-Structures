@@ -6,12 +6,18 @@ import RerenderLab from './exercises/01-rerenders/RerenderLab';
 import UserSearch from './exercises/02-effects/UserSearch';
 import ListKeys from './exercises/03-lists/ListKeys';
 import DebouncedSearch from './exercises/04-debounced-search/DebouncedSearch';
+import ImageCarousel from './exercises/05-carousel/ImageCarousel';
+import TeamsChat from './exercises/06-chat/TeamsChat';
+import TelemetryTable from './exercises/07-data-table/TelemetryTable';
 
 const exercises = {
   '01 Re-renders': <RerenderLab />,
   '02 useEffect + fetch': <UserSearch />,
   '03 List keys': <ListKeys />,
   '04 Debounced search': <DebouncedSearch />,
+  '05 Carousel': <ImageCarousel />,
+  '06 Teams chat': <TeamsChat />,
+  '07 Data table': <TelemetryTable />,
 } as const;
 
 type ExerciseName = keyof typeof exercises;

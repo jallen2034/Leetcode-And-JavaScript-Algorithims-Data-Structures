@@ -18,9 +18,42 @@
 
 import { check } from './helpers.ts';
 
+const buildCharMap = (string: string) => {
+  const charMap = new Map<string, number>();
+
+  for (let char of string) {
+    const existingCountForChar: number | undefined = charMap.get(char);
+
+    if (existingCountForChar !== undefined) {
+      const newCharCount: number = existingCountForChar + 1;
+      charMap.set(char, newCharCount);
+    } else {
+      charMap.set(char, 1);
+    }
+  }
+
+  return charMap;
+}
+
 const isAnagram = (s: string, t: string): boolean => {
-  // your code here
-  return false;
+  if (s.length !== t.length || s === t) {
+    return false;
+  }
+
+  const charMapS: Map<string, number> = buildCharMap(s);
+  const charMapT: Map<string, number> = buildCharMap(t);
+
+  if (charMapS.size !== charMapT.size) {
+    return false;
+  }
+
+  for (let [key, val] of charMapS) {
+    if (charMapS.get(key) !== charMapT.get(key)) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
 // ---- tests ----
