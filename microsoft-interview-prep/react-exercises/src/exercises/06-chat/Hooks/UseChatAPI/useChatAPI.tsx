@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { type ChatMessage, sendMessage, subscribeToIncoming } from "../../../../lib/chatApi.ts";
 import type {ChatMessageGroup} from "./types.ts";
-import { addMessageToGroups } from "./helpers.ts";
+import { groupMessages } from "./helpers.ts";
 import * as React from "react";
 
 export interface ChatApiReturn {
@@ -21,7 +21,8 @@ export const useChatApi = (
   scrollToBottom: any
 ): ChatApiReturn => {
   const [draft, setDraft] = useState<string>('');
-  const [messageGroups, setMessageGroups] = useState<ChatMessageGroup[]>([]);
+
+  const [messages, setMessages] = useState<ChatMessage[]>([])
 
   const [messageSentError, setMessageSentError] = useState<string | null>(null)
   const [sendingMessage, setSendingMessage] = useState<boolean>(false);
@@ -49,18 +50,13 @@ export const useChatApi = (
       setSendingMessage(true);
       const sentMessage: ChatMessage = await sendMessage(draft);
 
-      const sentMessageFromMe: ChatMessageGroup = {
-        author: sentMessage.author,
-        messages: [sentMessage]
-      }
-
-      setMessageGroups((prevState: ChatMessageGroup[]): ChatMessageGroup[] => {
-        return [...prevState, sentMessageFromMe]
+      setMessages((prevState: ChatMessage[]): ChatMessage[] => {
+        return [...prevState, sentMessage]
       });
 
       setDraft('');
     } catch (error) {
-      setMessageSentError(`Unexpected Error happened from the API when trying to send message: ${error}`)
+      setMessageSentError(`Unexpected Error happened from the APi when trying to send message: ${error}`)
     } finally {
       setSendingMessage(false);
       resetUnreadMessageCount();
@@ -74,16 +70,18 @@ export const useChatApi = (
   };
 
   useEffect(() => {
-    const unsubscribe = subscribeToIncoming((newMsgFromAPI: ChatMessage) => {
-      setMessageGroups((prevState: ChatMessageGroup[]): ChatMessageGroup[] => {
-        return addMessageToGroups(prevState, newMsgFromAPI);
-      });
+    const unsubscribe = subscribeToIncoming((msg: ChatMessage) => {
+      setMessages((prevState: ChatMessage[]): ChatMessage[] => {
+        return [...prevState, msg]
+      })
     })
 
     return () => {
       unsubscribe();
     };
   }, []);
+
+  const messageGroups: ChatMessageGroup[] = groupMessages(messages);
 
   return {
     draft,
