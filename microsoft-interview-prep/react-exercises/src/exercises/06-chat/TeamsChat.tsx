@@ -1,11 +1,12 @@
 // Exercise 06 — Teams-style chat. Brief, requirements, and lessons learned
 import { useEffect } from 'react';
-import { ErrorMessage } from "./Error/Error.tsx";
-import { SendMessageButton } from "./SendMessageButton/SendMessageButton.tsx";
-import { UnreadNotification } from "./UnreadNotification/UnreadNotification.tsx";
-import {type ChatScrollReturn, useChatScroll} from "./Hooks/useChatScroll.tsx";
-import {type ChatApiReturn, useChatApi} from "./Hooks/useChatAPI.tsx";
-import type {ChatMessage} from "../../lib/chatApi.ts";
+import { ErrorMessage } from "./Components/Error/Error.tsx";
+import { SendMessageButton } from "./Components/SendMessageButton/SendMessageButton.tsx";
+import { UnreadNotification } from "./Components/UnreadNotification/UnreadNotification.tsx";
+import { type ChatScrollReturn, useChatScroll } from "./Hooks/UseChatScroll/useChatScroll.tsx";
+import { type ChatApiReturn, useChatApi } from "./Hooks/UseChatAPI/useChatAPI.tsx";
+import type { ChatMessageGroup } from "./Hooks/UseChatAPI/types.ts";
+import MessageGroupRepeater from "./Components/MessageGroupRepeater/MessageGroupRepeater.tsx";
 
 export default function TeamsChat() {
   const {
@@ -23,9 +24,9 @@ export default function TeamsChat() {
 
   const {
     draft,
-    messages,
     sendingMessage,
     messageSentError,
+    messageGroups,
     sendChatMessage,
     dismissError,
     updateDraftMessage,
@@ -43,14 +44,11 @@ export default function TeamsChat() {
     if (isAtBottom) {
       scrollToBottom();
     }
-  }, [messages]);
-
-  // TODO (step 4): derive grouped messages here at render time.
+  }, [messageGroups]);
 
   return (
     <div>
       <h2>06 — Teams-style chat</h2>
-
       <div
         ref={containerRef}
         onScroll={handleScroll}
@@ -63,15 +61,9 @@ export default function TeamsChat() {
           marginBottom: 8,
         }}
       >
-        {/* TODO (step 4): replace this flat dump with grouped rendering.
-            TODO (step 1 sanity check): after your fix, each message should
-            appear exactly once. */}
-        {messages.map((msg: ChatMessage, i: number) => (
-          <div key={i} style={{marginBottom: 6}}>
-            <strong>{msg.author}:</strong> {msg.text}
-          </div>
+        {messageGroups.map((group: ChatMessageGroup) => (
+          <MessageGroupRepeater group={group}/>
         ))}
-
         <div ref={messagesEndRef}/>
       </div>
 

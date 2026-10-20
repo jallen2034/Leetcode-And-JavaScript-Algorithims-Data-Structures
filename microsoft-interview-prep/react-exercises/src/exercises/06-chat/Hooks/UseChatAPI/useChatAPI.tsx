@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
-import {type ChatMessage, sendMessage, subscribeToIncoming} from "../../../lib/chatApi.ts";
+import { useEffect, useState } from 'react';
+import { type ChatMessage, sendMessage, subscribeToIncoming } from "../../../../lib/chatApi.ts";
+import type {ChatMessageGroup} from "./types.ts";
+import { addMessageToGroups } from "./helpers.ts";
+import * as React from "react";
 
 export interface ChatApiReturn {
   draft: string;
-  messages: ChatMessage[];
+  messageGroups: ChatMessageGroup[]
   sendingMessage: boolean;
   messageSentError: string | null;
   sendChatMessage: () => Promise<void>;
@@ -18,7 +21,8 @@ export const useChatApi = (
   scrollToBottom: any
 ): ChatApiReturn => {
   const [draft, setDraft] = useState<string>('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messageGroups, setMessageGroups] = useState<ChatMessageGroup[]>([]);
+
   const [messageSentError, setMessageSentError] = useState<string | null>(null)
   const [sendingMessage, setSendingMessage] = useState<boolean>(false);
 
@@ -45,13 +49,18 @@ export const useChatApi = (
       setSendingMessage(true);
       const sentMessage: ChatMessage = await sendMessage(draft);
 
-      setMessages((prevState: ChatMessage[]): ChatMessage[] => {
-        return [...prevState, sentMessage]
+      const sentMessageFromMe: ChatMessageGroup = {
+        author: sentMessage.author,
+        messages: [sentMessage]
+      }
+
+      setMessageGroups((prevState: ChatMessageGroup[]): ChatMessageGroup[] => {
+        return [...prevState, sentMessageFromMe]
       });
 
       setDraft('');
     } catch (error) {
-      setMessageSentError(`Unexpected Error happened from the APi when trying to send message: ${error}`)
+      setMessageSentError(`Unexpected Error happened from the API when trying to send message: ${error}`)
     } finally {
       setSendingMessage(false);
       resetUnreadMessageCount();
@@ -65,10 +74,10 @@ export const useChatApi = (
   };
 
   useEffect(() => {
-    const unsubscribe = subscribeToIncoming((msg: ChatMessage) => {
-      setMessages((prevState: ChatMessage[]): ChatMessage[] => {
-        return [...prevState, msg]
-      })
+    const unsubscribe = subscribeToIncoming((newMsgFromAPI: ChatMessage) => {
+      setMessageGroups((prevState: ChatMessageGroup[]): ChatMessageGroup[] => {
+        return addMessageToGroups(prevState, newMsgFromAPI);
+      });
     })
 
     return () => {
@@ -78,9 +87,9 @@ export const useChatApi = (
 
   return {
     draft,
-    messages,
     sendingMessage,
     messageSentError,
+    messageGroups,
     sendChatMessage,
     dismissError,
     updateDraftMessage,

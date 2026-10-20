@@ -16,7 +16,16 @@ export type ChatMessage = {
   isMe: boolean;
 };
 
-const COLLEAGUES = ['Priya', 'Marcus', 'Elena'];
+// Scripted author order with deliberate back-to-back repeats (Priya x2,
+// Elena x3) so consumers that GROUP consecutive messages by author have
+// both cases guaranteed: same-author-as-last and author-changed.
+const AUTHOR_SCRIPT = [
+  'Priya', 'Priya',
+  'Marcus',
+  'Elena', 'Elena', 'Elena',
+  'Marcus', 'Marcus',
+  'Priya',
+];
 
 const CANNED_REPLIES = [
   'Did you see the p95 spike on the ingestion dashboard?',
@@ -47,7 +56,7 @@ export function subscribeToIncoming(onMessage: (msg: ChatMessage) => void): () =
   const scheduleNext = () => {
     timer = setTimeout(() => {
       if (cancelled) return;
-      const author = COLLEAGUES[step % COLLEAGUES.length];
+      const author = AUTHOR_SCRIPT[step % AUTHOR_SCRIPT.length];
       const text = CANNED_REPLIES[step % CANNED_REPLIES.length];
       step += 1;
       onMessage(makeMessage(text, author, false));
