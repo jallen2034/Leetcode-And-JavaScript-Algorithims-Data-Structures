@@ -21,9 +21,7 @@ export const useChatApi = (
   scrollToBottom: any
 ): ChatApiReturn => {
   const [draft, setDraft] = useState<string>('');
-
   const [messages, setMessages] = useState<ChatMessage[]>([])
-
   const [messageSentError, setMessageSentError] = useState<string | null>(null)
   const [sendingMessage, setSendingMessage] = useState<boolean>(false);
 

@@ -44,7 +44,8 @@
 //     render cost → DOM node count.)
 
 import { useState } from 'react';
-import { ROWS, type ServiceHealthRow } from '../../lib/telemetryData';
+import { type ServiceHealthRow } from '../../lib/telemetryData';
+import PaginatedTable from "./PaginatedTable/Components/PaginatedTable.tsx";
 
 type SortColumn = keyof Pick<
   ServiceHealthRow,
@@ -53,8 +54,6 @@ type SortColumn = keyof Pick<
 
 type SortState = { column: SortColumn; direction: 'asc' | 'desc' } | null;
 
-const PAGE_SIZE = 10;
-
 export default function TelemetryTable() {
   const [sort, setSort] = useState<SortState>(null);
   const [filterText, setFilterText] = useState('');
@@ -62,9 +61,6 @@ export default function TelemetryTable() {
 
   void sort; void setSort; void filterText; void setFilterText; void page; void setPage; // placeholders — delete as you wire each up
 
-  // TODO (steps 2-4): derive, in order: filtered → sorted → paged.
-  // No new useState calls should appear below this line. None.
-  const visibleRows = ROWS.slice(0, PAGE_SIZE); // placeholder — replace with the pipeline
 
   // TODO (step 2): handleHeaderClick(column) — same column flips direction,
   // new column starts 'asc'.
@@ -75,34 +71,7 @@ export default function TelemetryTable() {
 
       {/* TODO (step 3): filter input (labelled!), wired to filterText */}
       {/* TODO (step 7, stretch): debounce it with useDebouncedValue */}
-
-      <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-        <thead>
-          <tr>
-            {/* TODO (step 2): make headers clickable sort buttons; show ▲/▼
-                on the active one; aria-sort on the th. */}
-            <th scope="col">Service</th>
-            <th scope="col">Region</th>
-            <th scope="col">Status</th>
-            <th scope="col">p95 (ms)</th>
-            <th scope="col">Error %</th>
-            <th scope="col">Req/min</th>
-          </tr>
-        </thead>
-        <tbody>
-          {visibleRows.map((row) => (
-            <tr key={row.id}>
-              <td>{row.service}</td>
-              <td>{row.region}</td>
-              <td>{row.status}</td>
-              <td style={{ textAlign: 'right' }}>{row.p95LatencyMs}</td>
-              <td style={{ textAlign: 'right' }}>{row.errorRatePct}</td>
-              <td style={{ textAlign: 'right' }}>{row.requestsPerMin.toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
+      <PaginatedTable/>
       {/* TODO (step 4): Prev / Next + "page X of Y"; clamp page when the
           filter shrinks the result set. */}
     </div>
