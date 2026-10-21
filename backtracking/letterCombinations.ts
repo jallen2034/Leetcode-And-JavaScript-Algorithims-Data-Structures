@@ -31,13 +31,46 @@
 import { checkUnordered } from './helpers.ts';
 
 const KEYPAD: Record<string, string> = {
-  '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
-  '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz',
+  '2': 'abc',
+  '3': 'def',
+  '4': 'ghi',
+  '5': 'jkl',
+  '6': 'mno',
+  '7': 'pqrs',
+  '8': 'tuv',
+  '9': 'wxyz',
 };
 
 const letterCombinations = (digits: string): string[] => {
-  // your code here
-  return [];
+  const result: any[] = [];
+  const path: any[] = [];
+
+  const backTrack = (slotIdx: number) => {
+    const digit: string = digits[slotIdx];
+    const letters: string = KEYPAD[digit];
+
+    if (path.length === digits.length) {
+      const res: string = path.join('');
+      result.push(res);
+    }
+
+    if (digit === undefined) {
+      return;
+    }
+
+    for (const letter of letters) {
+      path.push(letter);
+
+      backTrack(slotIdx + 1);
+
+      path.pop();
+    }
+
+  }
+
+  backTrack(0)
+
+  return result;
 };
 
 // ---- tests ----
@@ -45,6 +78,7 @@ const letterCombinations = (digits: string): string[] => {
 checkUnordered('LC ex1: "23"', letterCombinations('23'), [
   'ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf',
 ]);
+
 checkUnordered('LC ex2: single digit', letterCombinations('2'), ['a', 'b', 'c']);
 checkUnordered('4-letter key', letterCombinations('7'), ['p', 'q', 'r', 's']);
 checkUnordered('three digits = 27 results', letterCombinations('222'), [

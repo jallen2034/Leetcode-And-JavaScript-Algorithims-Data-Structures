@@ -61,7 +61,7 @@ export function subscribeToIncoming(onMessage: (msg: ChatMessage) => void): () =
       step += 1;
       onMessage(makeMessage(text, author, false));
       scheduleNext();
-    }, 3000);
+    }, 12000); // Slowed from 3000ms for debugging — gives time to observe UI state between messages.
   };
 
   scheduleNext();
