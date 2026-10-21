@@ -61,10 +61,6 @@ export default function TelemetryTable() {
 
   void sort; void setSort; void filterText; void setFilterText; void page; void setPage; // placeholders — delete as you wire each up
 
-
-  // TODO (step 2): handleHeaderClick(column) — same column flips direction,
-  // new column starts 'asc'.
-
   return (
     <div>
       <h2>07 — Service health table</h2>
@@ -72,8 +68,6 @@ export default function TelemetryTable() {
       {/* TODO (step 3): filter input (labelled!), wired to filterText */}
       {/* TODO (step 7, stretch): debounce it with useDebouncedValue */}
       <PaginatedTable/>
-      {/* TODO (step 4): Prev / Next + "page X of Y"; clamp page when the
-          filter shrinks the result set. */}
     </div>
   );
 }
