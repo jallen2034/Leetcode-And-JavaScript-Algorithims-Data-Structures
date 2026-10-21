@@ -1,9 +1,9 @@
-import {ROWS, type ServiceHealthRow} from "../../../../lib/telemetryData.ts";
-import {useState} from "react";
-import {generateSortedRows} from "./helpers.tsx";
+import { ROWS, type ServiceHealthRow } from "../../../../lib/telemetryData.ts";
+import { useState } from "react";
+import { generateSortedRows } from "./helpers.tsx";
 import type {TableCol} from "../types.ts";
-import {useTablePaginate, type UseTablePaginateReturn} from "../Hooks/useTablePaginate.tsx";
-import {SimplePaginate} from "./SimplePagination/SimplePaginate.tsx";
+import { useTablePaginate, type UseTablePaginateReturn } from "../Hooks/useTablePaginate.tsx";
+import { SimplePaginate } from "./SimplePagination/SimplePaginate.tsx";
 
 export default function PaginatedTable () {
   const [sortColumn, setSortColumn] = useState<keyof ServiceHealthRow | null>(null);

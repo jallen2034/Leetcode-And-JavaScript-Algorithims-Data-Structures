@@ -1,7 +1,3 @@
-// Infrastructure for exercise 07 — static telemetry rows, observability-flavoured
-// on purpose: the team you're interviewing with builds monitoring UX, and
-// "translate data-rich scenarios into intuitive UX" is in the job posting.
-
 export type ServiceHealthRow = {
   id: number;
   service: string;
