@@ -8,7 +8,7 @@ const generateSortedRows = (
   const ASCENDING = 1;
   const DESCENDING = -1;
 
-  const directionTextComparison = sortDirection === 'asc' ? ASCENDING : DESCENDING;
+  const directionMultiplier = sortDirection === 'asc' ? ASCENDING : DESCENDING;
 
   if (sortColumn === null) {
     return rows;
@@ -21,11 +21,12 @@ const generateSortedRows = (
     const rowBValue: string | number = rowB[sortColumn];
 
     if (typeof rowAValue === 'number' && typeof rowBValue === 'number') {
-      return (rowAValue - rowBValue) * directionTextComparison;
+      const numericComparison: number = (rowAValue - rowBValue) * directionMultiplier;
+      return numericComparison;
     }
 
-    const textComparison: number = String(rowAValue).localeCompare(String(rowBValue)) * directionTextComparison;
-    return textComparison;
+    const sortDirectionFactor: number = String(rowAValue).localeCompare(String(rowBValue)) * directionMultiplier;
+    return sortDirectionFactor;
   })
 
   return sortedRows;
