@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/web-interview-prep/react-exercises/src/exercises/07-data-table/sample-app-web" vcs="Git" />
   </component>
 </project>
